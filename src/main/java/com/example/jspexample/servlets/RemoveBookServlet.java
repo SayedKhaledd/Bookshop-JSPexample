@@ -22,6 +22,7 @@ public class RemoveBookServlet extends HttpServlet {
         request.getRequestDispatcher("/bookshop.jsp").forward(request, response);
     }
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }

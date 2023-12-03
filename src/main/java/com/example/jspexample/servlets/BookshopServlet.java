@@ -19,7 +19,6 @@ public class BookshopServlet extends HttpServlet {
         // Set the bookshop name in the session to be used across the application
         HttpSession session = request.getSession();
         session.setAttribute("bookshopName", bookshopName);
-        System.out.println(bookshopName);
 
         // Redirect to the bookshop page
         response.sendRedirect("bookshop.jsp");

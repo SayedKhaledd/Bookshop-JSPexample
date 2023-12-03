@@ -22,7 +22,7 @@ public class OldestBookServlet extends HttpServlet {
                 .orElse(null);
 
         request.setAttribute("oldestBook", oldestBook);
-        request.getRequestDispatcher("/oldest-book.jsp").forward(request, response);
+        request.getRequestDispatcher("/bookshop.jsp").forward(request, response);
     }
 }
 

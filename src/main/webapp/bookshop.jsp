@@ -57,11 +57,6 @@
             margin-bottom: 15px;
         }
     </style>
-    <script type="text/javascript">
-        function submitForm(formId) {
-            document.getElementById(formId).submit();
-        }
-    </script>
 </head>
 <body>
 <h1>Welcome to <%= request.getSession().getAttribute("bookshopName") %> Bookshop!</h1>
@@ -81,8 +76,6 @@
     </tr>
     <% List<Book> books = BookData.getBooks();
         for (Book book : books) {
-            String removeFormId = "removeForm" + book.getTitle().replaceAll("\\s+", "");
-            String discountFormId = "discountForm" + book.getTitle().replaceAll("\\s+", "");
     %>
     <tr>
         <td><%= book.getTitle() %>
@@ -93,17 +86,17 @@
         </td>
         <td><%= book.getPublishingYear() %>
         </td>
-        <td class="center">
-            <form id="<%= removeFormId %>" action="remove-book-servlet" method="post" style="display: none;">
+        <td>
+            <form action="remove-book-servlet" method="post">
                 <input type="hidden" name="title" value="<%= book.getTitle() %>"/>
+                <input type="submit" value="remove">
             </form>
-            <a onclick="submitForm('<%= removeFormId %>'); return false;" class="action-link">Remove</a>
         </td>
-        <td class="center">
-            <form id="<%= discountFormId %>" action="discount-servlet" method="post" style="display: none;">
+        <td>
+            <form action="discount-servlet" method="post">
                 <input type="hidden" name="title" value="<%= book.getTitle() %>"/>
+                <input type="submit" value="discount">
             </form>
-            <a onclick="submitForm('<%= discountFormId %>'); return false;" class="action-link">5% Off</a>
         </td>
     </tr>
     <% } %>
@@ -114,5 +107,35 @@
 <div class="view-oldest">
     <a href="oldest-book-servlet">View Oldest Book</a>
 </div>
+
+<%
+    if (request.getAttribute("oldestBook") != null) {
+        Book book = (Book) request.getAttribute("oldestBook");
+%>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Year</th>
+        <th>action</th>
+
+    </tr>
+    <tr>
+        <th><%=book.getTitle()%>
+        </th>
+        <th><%=book.getAuthor()%>
+        </th>
+        <th><%=book.getPrice()%>
+        </th>
+        <th><%=book.getPublishingYear()%>
+        </th>
+        <th>    <form action="save-book-servlet" method="post">
+            <input type="hidden" name="title" value="<%= book.getTitle() %>"/>
+            <input type="submit" value="save to xml">
+        </form></th>
+    </tr>
+</table>
+<%}%>
 </body>
 </html>

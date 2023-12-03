@@ -15,14 +15,8 @@ import java.util.List;
 public class DiscountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = request.getParameter("title");
-        List<Book> books = BookData.getBooks();
-
-        for (Book book : books) {
-            if (book.getTitle().equals(title)) {
-                book.setPrice(book.getPrice() * 0.95); // Apply 5% discount
-                break;
-            }
-        }
+        BookData.getBooks().stream().filter(book -> book.getTitle().equals(title))
+                .forEach(book -> book.setPrice(book.getPrice() * 0.95));
 
         request.setAttribute("message", "Discount applied successfully!");
         request.getRequestDispatcher("/bookshop.jsp").forward(request, response);

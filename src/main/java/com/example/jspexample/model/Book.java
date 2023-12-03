@@ -1,5 +1,8 @@
 package com.example.jspexample.model;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Book {
     private String title;
     private String author;
@@ -7,6 +10,11 @@ public class Book {
     private int publishingYear;
 
     // Constructor, getters, and setters
+
+
+    public Book() {
+    }
+
     public Book(String title, String author, double price, int publishingYear) {
         this.title = title;
         this.author = author;
